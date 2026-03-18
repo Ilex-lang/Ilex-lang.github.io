@@ -1,0 +1,140 @@
+---
+title: The Ilex Programming Language
+description: A systems programming language that's explicit, fast, and fun.
+template: splash
+hero:
+  tagline: A new systems programming language that's explicit, fast, and fun.
+  actions:
+    - text: Get Started
+      link: /getting-started/introduction/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/Ilex-lang/ilex
+      variant: minimal
+      icon: external
+---
+
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Hello world">
+    ```ilex
+    #import fmt;
+
+    fn main() {
+        fmt::println("Hullo!");
+    }
+    ```
+  </TabItem>
+  <TabItem label="Generics">
+    ```ilex
+    #import fmt;
+    #import { append } from arrays;
+
+    typedef Vec2 struct<$T :: ~#number> {
+        x: T;
+        y: T;
+    }
+
+    typedef Vec2f as Vec2<f32>;
+
+    fn dot(a, b: Vec2<$T>): T {
+        return a.x * b.x + a.y * b.y;
+    }
+
+    operator * overloads { dot }
+
+    fn main() {
+        positions := make([]Vec2f, 10);
+        defer delete(positions);
+
+        for const i in 0 ..< 10 {
+            append(positions, Vec2f{x: f32(i), y: f32(i * 2)});
+        }
+
+        for const pos in positions {
+            result := pos * Vec2f{x: 1.0, y: 0.0};
+            fmt::println("dot = {}", result);
+        }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Error Handling">
+    ```ilex
+    #import using fmt;
+    #import fs;
+
+    fn read_file(path: string): string! {
+        file := try fs::open(path);
+        defer fs::close(&file);
+        return try fs::read_all(&file);
+    }
+
+    fn main() {
+        result := read_file("data.txt");
+        when result {
+            error::File_Not_Found: println("file missing");
+            error::Access_Denied: println("no permission");
+            else: println("other error");
+        }
+    }
+    ```
+  </TabItem>
+  <TabItem label="Compile-Time">
+    ```ilex
+    #import fmt;
+    #import { run, trim } from process;
+    #import strings;
+
+    const GIT_HASH = #run {
+        result := process::run("git", ["rev-parse", "--short", "HEAD"])
+            else yields "unknown";
+        yields strings::trim(result.stdout);
+    };
+
+    #insert #run {
+        mut code = "";
+        for i in 0 ..< 10 {
+            code += fmt::sprintf("const VALUE_{} = {};\n", i, i * 100);
+        }
+        yields code;
+    };
+
+    fn main() {
+        fmt::println("build: {}", GIT_HASH);
+    }
+    ```
+  </TabItem>
+  <TabItem label="C Interop">
+    ```ilex
+    #import extern "raylib.h" as raylib;
+
+    fn main() {
+        raylib::InitWindow(800, 600, "Hello from Ilex");
+        defer raylib::CloseWindow();
+
+        until raylib::WindowShouldClose() {
+            raylib::BeginDrawing();
+            defer raylib::EndDrawing();
+            raylib::ClearBackground(raylib::RAYWHITE);
+            raylib::DrawText("Hello!", 190, 200, 20, raylib::LIGHTGRAY);
+        }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+<CardGrid>
+	<Card title="Explicit over implicit" icon="pencil">
+		No hidden allocations, no implicit conversions, no garbage collector. You control what your program does.
+	</Card>
+	<Card title="Compile-time power" icon="setting">
+		Execute arbitrary code at compile time with `#run`, generate code with macros, and introspect types — all before your program ships.
+	</Card>
+	<Card title="C interoperability" icon="puzzle">
+		Import C headers directly with `#import extern`. No bindings generators, no wrappers — just use existing C libraries.
+	</Card>
+	<Card title="Modern ergonomics" icon="rocket">
+		Generics, optionals, result types, pattern matching, `defer`, and range-based `for` loops — with the control of a systems language.
+	</Card>
+</CardGrid>

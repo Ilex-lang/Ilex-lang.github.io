@@ -1,0 +1,718 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Ilex",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#imports"
+    },
+    {
+      "include": "#attributes"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "#builtin_compile_time"
+    },
+    {
+      "include": "#generic_constraints"
+    },
+    {
+      "include": "#platform_flags"
+    },
+    {
+      "include": "#utility_macros"
+    },
+    {
+      "include": "#macros"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#statements"
+    },
+    {
+      "include": "#callables"
+    },
+    {
+      "include": "#generic_params"
+    },
+    {
+      "include": "#digits"
+    },
+    {
+      "include": "#ident"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.ilex",
+          "match": "\\b(if|else|elif|while|until|for|return|yields|when|fallthrough|break|continue|in|defer|defer_err|restrict|goto|try|push_context)\\b"
+        },
+        {
+          "name": "keyword.reserved.ilex",
+          "match": "\\b(impl|constimpl|endimpl|md|does|behavior)\\b"
+        },
+        {
+          "name": "keyword.intrinsics.ilex",
+          "match": "\\b(cast|recast|auto_cast|type_of|typeid_of|typeinfo_of|typename_of|size_of|name_of|align_of|type_info|inner_type|fields_of|field_count|has_field|field_type|enum_values|enum_names|enum_count|is_pointer|is_array|is_slice|is_dynamic_array|is_struct|is_enum|is_union|is_optional|is_result|is_function|is_numeric|is_integer|is_float|is_signed|is_unsigned|is_soa|is_const|soa_fields|soa_stride|aos_to_soa|soa_to_aos)\\b"
+        },
+        {
+          "name": "keyword.operator.memory.ilex",
+          "match": "\\b(new|delete|make|make_safe|free|new_safe|new_undefined|new_array|append|prepend|len|cap|includes)\\b"
+        },
+        {
+          "name": "constant.language.null.ilex",
+          "match": "\\b(null|undefined|unused|unreachable)\\b"
+        },
+        {
+          "name": "constant.language.boolean.ilex",
+          "match": "\\b(true|false)\\b"
+        },
+        {
+          "comment": "Null coalescing assignment",
+          "match": "\\?\\?=",
+          "name": "keyword.operator.assignment.null-coalescing.ilex"
+        },
+        {
+          "comment": "Null coalescing",
+          "match": "\\?\\?",
+          "name": "keyword.operator.null-coalescing.ilex"
+        },
+        {
+          "comment": "Optional unwrap",
+          "match": "\\.\\?",
+          "name": "keyword.operator.optional-unwrap.ilex"
+        },
+        {
+          "comment": "Payload capturing / fat arrow",
+          "match": "=>",
+          "name": "keyword.operator.arrow.fat.ilex"
+        },
+        {
+          "comment": "Pointer field access",
+          "match": "->",
+          "name": "keyword.operator.arrow.ilex"
+        },
+        {
+          "comment": "Inclusive range",
+          "match": "\\.\\.=",
+          "name": "keyword.operator.range.inclusive.ilex"
+        },
+        {
+          "comment": "Half-open range",
+          "match": "\\.\\.<",
+          "name": "keyword.operator.range.half-open.ilex"
+        },
+        {
+          "comment": "Spread operator",
+          "match": "\\.\\.\\.",
+          "name": "keyword.operator.spread.ilex"
+        },
+        {
+          "comment": "Plain range",
+          "match": "\\.\\.",
+          "name": "keyword.operator.range.ilex"
+        },
+        {
+          "comment": "Wrapping arithmetic operators",
+          "match": "(%\\+\\+|%--|%\\+=|%-=|%\\*=|%/=|%\\+|%-|%\\*|%/)",
+          "name": "keyword.operator.arithmetic.wrapping.ilex"
+        },
+        {
+          "match": "(<<|>>|~)",
+          "name": "keyword.operator.bitwise.shift.ilex"
+        },
+        {
+          "match": "((&|\\||\\^|~|<<|>>)=)",
+          "name": "keyword.operator.assignment.bitwise.ilex"
+        },
+        {
+          "match": "(==|!=|<=|>=|<|>)",
+          "name": "keyword.operator.comparison.ilex"
+        },
+        {
+          "match": "(@?[+\\*/%\\-]=)",
+          "name": "keyword.operator.assignment.arithmetic.ilex"
+        },
+        {
+          "match": "(:=|::=|=)",
+          "name": "keyword.operator.assignment.ilex"
+        },
+        {
+          "match": "(@?(\\-\\-|\\+\\+))",
+          "name": "keyword.operator.increment-decrement.ilex"
+        },
+        {
+          "match": "(@?(\\-|\\+|\\*|\\/|%))",
+          "name": "keyword.operator.arithmetic.ilex"
+        },
+        {
+          "match": "(!|&&|\\|\\|)",
+          "name": "keyword.operator.logical.ilex"
+        },
+        {
+          "match": "(\\||&)",
+          "name": "keyword.operator.bitwise.ilex"
+        },
+        {
+          "match": "\\b(as|extern)\\b",
+          "name": "keyword.other.use.ilex"
+        },
+        {
+          "name": "keyword.structure.ilex",
+          "match": "\\b(struct|enum|error|union)\\b"
+        },
+        {
+          "match": "\\b(bool|b8|b16|b32|b64|char|string|cstring|int|uint|uintptr|intptr|float|double|s8|s16|s32|s64|s128|u8|u16|u32|u64|u128|f16|f32|f64|f128|byte|void|typeid|unknown|rawptr|error)\\b",
+          "name": "storage.type.primitive.ilex"
+        },
+        {
+          "name": "keyword.other.included",
+          "match": "\\b(assert|assert_db|panic)\\b"
+        },
+        {
+          "name": "entity.name.type.Self.ilex",
+          "match": "\\b(Self)\\b"
+        },
+        {
+          "name": "keyword.other.ilex",
+          "match": "\\b(distinct)\\b"
+        }
+      ]
+    },
+    "statements": {
+      "patterns": [
+        {
+          "match": "\\b(mut|const)\\s+(\\^?[A-Za-z_][A-Za-z0-9_]*)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "support.variable.ilex"
+            }
+          }
+        },
+        {
+          "match": "\\b(fn)\\s+(([A-Za-z_][A-Za-z0-9_]*(::))?[A-Za-z_][A-Za-z0-9_]*)\\s*[\\(<\\[]",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.function.ilex"
+            },
+            "3": {
+              "name": "entity.name.type.type.ilex"
+            },
+            "4": {
+              "name": "punctuation.coloncolon"
+            }
+          }
+        },
+        {
+          "comment": "fn name overloads { ... }",
+          "match": "\\b(fn)\\s+([A-Za-z_][A-Za-z0-9_]*)\\s+(overloads)\\s*\\{",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.function.ilex"
+            },
+            "3": {
+              "name": "keyword.default.ilex"
+            }
+          }
+        },
+        {
+          "comment": "operator +/- etc. overloads { ... }",
+          "match": "\\b(operator)\\s+(==|!=|\\+|-|\\*|/|\\+=|-=|\\*=|/=|\\[\\]|\\[\\]=|<|>|<=|>=|!|~)\\s+(overloads)\\s*\\{",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.function.operator.ilex"
+            },
+            "3": {
+              "name": "keyword.default.ilex"
+            }
+          }
+        },
+        {
+          "comment": "typedef X as Y or typedef X struct/enum/union/error { }",
+          "match": "\\b(typedef)\\s+([A-Za-z_][A-Za-z0-9_]*)(?:\\s+(as)\\s+([A-Za-z_][A-Za-z0-9_|\\s]*))?\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.type.type.ilex"
+            },
+            "3": {
+              "name": "storage.modifier.ilex"
+            },
+            "4": {
+              "name": "entity.name.type.type.ilex"
+            }
+          }
+        },
+        {
+          "match": "\\b(namespace)\\s+([A-Za-z_][A-Za-z0-9_]*)(?:\\s*(as)\\s*([A-Za-z_][A-Za-z0-9_]*))?\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "match": "\\b(use|using)\\s+(('|\")?[A-Za-z_][A-Za-z0-9_:.]*('|\")?)(?:\\s*(as)\\s*([A-Za-z_][A-Za-z0-9_]*))?",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "comment": "test \"name\" { or test skip",
+          "match": "\\b(test)\\s+(\"[^\"]*\"|skip)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "string.quoted.double.ilex"
+            }
+          }
+        },
+        {
+          "comment": "skip test",
+          "match": "\\b(skip)\\s+(test)\\b",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            },
+            "2": {
+              "name": "keyword.default.ilex"
+            }
+          }
+        },
+        {
+          "comment": "test { (unnamed test block)",
+          "match": "\\b(test)\\s*\\{",
+          "captures": {
+            "1": {
+              "name": "keyword.default.ilex"
+            }
+          }
+        }
+      ]
+    },
+    "imports": {
+      "patterns": [
+        {
+          "comment": "#import extern \"header.h\" as name;",
+          "match": "(#import)\\s+(extern)\\s+(\"[^\"]*\")\\s+(as)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.ilex"
+            },
+            "2": {
+              "name": "storage.modifier.ilex"
+            },
+            "3": {
+              "name": "string.quoted.double.ilex"
+            },
+            "4": {
+              "name": "keyword.control.ilex"
+            },
+            "5": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "comment": "#import { ... } from name;",
+          "match": "(#import)\\s+(\\{[^}]*\\})\\s+(from)\\s+([A-Za-z_][A-Za-z0-9_:]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.ilex"
+            },
+            "2": {
+              "name": "meta.import.list.ilex"
+            },
+            "3": {
+              "name": "keyword.control.ilex"
+            },
+            "4": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "comment": "#import using name; or #import using \"name\";",
+          "match": "(#import)\\s+(using)\\s+(\"[^\"]*\"|[A-Za-z_][A-Za-z0-9_:]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.ilex"
+            },
+            "2": {
+              "name": "keyword.control.ilex"
+            },
+            "3": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "comment": "#import name as alias; or #import name using;",
+          "match": "(#import)\\s+(\"[^\"]*\"|[A-Za-z_][A-Za-z0-9_:]*)\\s+(as|using)(?:\\s+([A-Za-z_][A-Za-z0-9_]*))?",
+          "captures": {
+            "1": {
+              "name": "keyword.control.ilex"
+            },
+            "2": {
+              "name": "entity.name.type.module.ilex"
+            },
+            "3": {
+              "name": "keyword.control.ilex"
+            },
+            "4": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        },
+        {
+          "comment": "#import name; or #import \"name\";",
+          "match": "(#import)\\s+(\"[^\"]*\"|[A-Za-z_][A-Za-z0-9_:]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.control.ilex"
+            },
+            "2": {
+              "name": "entity.name.type.module.ilex"
+            }
+          }
+        }
+      ]
+    },
+    "attributes": {
+      "patterns": [
+        {
+          "comment": "#[...] attribute syntax",
+          "begin": "#\\[",
+          "end": "\\]",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.attribute.begin.ilex"
+            }
+          },
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.attribute.end.ilex"
+            }
+          },
+          "name": "meta.attribute.ilex",
+          "patterns": [
+            {
+              "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b",
+              "name": "entity.other.attribute-name.ilex"
+            },
+            {
+              "include": "#strings"
+            },
+            {
+              "include": "#digits"
+            }
+          ]
+        }
+      ]
+    },
+    "directives": {
+      "patterns": [
+        {
+          "comment": "Compile-time directives (not #import, handled separately)",
+          "match": "#(run|insert|code|macro|modify|bake_constants|specialize|define|undef|set|unset|if|elif|else|ifndef|for|error|warn|info|todo|assert|asm|soa|ordered)\\b",
+          "name": "keyword.control.directive.ilex"
+        }
+      ]
+    },
+    "builtin_compile_time": {
+      "patterns": [
+        {
+          "comment": "Built-in compile-time values",
+          "match": "#(file|path|line|column|function|namespace|location|caller_location|target_os|target_arch|target_endian|target_pointer_width|target_triple|build_mode|opt_level|ilex_version|ilex_version_major|ilex_version_minor|ilex_version_patch|build_time|build_date|build_timestamp|counter|iota)\\b",
+          "name": "constant.language.builtin.ilex"
+        }
+      ]
+    },
+    "generic_constraints": {
+      "patterns": [
+        {
+          "comment": "Generic type constraints",
+          "match": "#(number|integer|decimal|signed|signed_integer|unsigned|unsigned_integer|boolean)\\b",
+          "name": "storage.type.constraint.ilex"
+        }
+      ]
+    },
+    "platform_flags": {
+      "patterns": [
+        {
+          "comment": "Platform detection flags",
+          "match": "#(OS_WINDOWS|OS_LINUX|OS_MACOS|OS_IOS|OS_ANDROID|OS_FREEBSD|OS_OPENBSD|OS_NETBSD|OS_WASM|ARCH_X86|ARCH_X86_64|ARCH_ARM|ARCH_ARM64|ARCH_WASM32|ARCH_WASM64|ARCH_RISCV32|ARCH_RISCV64)\\b",
+          "name": "constant.language.platform.ilex"
+        }
+      ]
+    },
+    "utility_macros": {
+      "patterns": [
+        {
+          "comment": "Utility compile-time macros",
+          "match": "#(embed_bytes|embed_string|concat|stringify|c_varargs|env)\\b",
+          "name": "support.function.macro.builtin.ilex"
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "comment": "Fallback: any #identifier not matched above",
+          "match": "#([A-Za-z_][A-Za-z0-9_]*)",
+          "name": "support.function.macro.ilex"
+        }
+      ]
+    },
+    "generic_params": {
+      "patterns": [
+        {
+          "comment": "$T generic type parameters",
+          "match": "\\$([A-Za-z_][A-Za-z0-9_]*)",
+          "name": "entity.name.type.generic.ilex"
+        }
+      ]
+    },
+    "callables": {
+      "patterns": [
+        {
+          "match": "([A-Za-z_][A-Za-z0-9_]*)\\(",
+          "captures": {
+            "1": {
+              "name": "support.function.ilex"
+            }
+          }
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.ilex",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.ilex",
+              "match": "(?x)\\\\ (\n\\\\\t\t\t |\n[abefnprtv'\"?]   |\n[0-3]\\d{,2}\t |\n[4-7]\\d?\t\t|\nx[a-fA-F0-9]{,2} |\nu[a-fA-F0-9]{,4} |\nU[a-fA-F0-9]{,8} )"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.ilex",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.ilex",
+              "match": "(?x)\\\\ (\n\\\\\t\t\t |\n[abefnprtv'\"?]   |\n[0-3]\\d{,2}\t |\n[4-7]\\d?\t\t|\nx[a-fA-F0-9]{,2} |\nu[a-fA-F0-9]{,4} |\nU[a-fA-F0-9]{,8} )"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.raw.ilex",
+          "begin": "`",
+          "end": "`"
+        }
+      ]
+    },
+    "digits": {
+      "patterns": [
+        {
+          "comment": "Hexadecimal literal",
+          "name": "constant.numeric.hex.ilex",
+          "match": "\\b0[xX][0-9a-fA-F_]+\\b"
+        },
+        {
+          "comment": "Octal literal",
+          "name": "constant.numeric.octal.ilex",
+          "match": "\\b0[qQ][0-7_]+\\b"
+        },
+        {
+          "comment": "Binary literal",
+          "name": "constant.numeric.binary.ilex",
+          "match": "\\b0[bB][01_]+\\b"
+        },
+        {
+          "comment": "Float literal with decimal point",
+          "name": "constant.numeric.float.ilex",
+          "match": "\\b[0-9][0-9_]*\\.[0-9_]*[fFdD]?\\b"
+        },
+        {
+          "comment": "Float literal with suffix only (e.g. 12f)",
+          "name": "constant.numeric.float.ilex",
+          "match": "\\b[0-9][0-9_]*[fFdD]\\b"
+        },
+        {
+          "comment": "Integer literal",
+          "name": "constant.numeric.integer.ilex",
+          "match": "\\b[0-9][0-9_]*\\b"
+        }
+      ]
+    },
+    "ident": {
+      "patterns": [
+        {
+          "name": "variable.other.readwrite.ilex",
+          "match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "begin": "/\\*\\*(?!/)",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.ilex"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.ilex"
+            }
+          },
+          "name": "comment.block.documentation.ilex",
+          "patterns": [
+            {
+              "include": "#nested"
+            }
+          ]
+        },
+        {
+          "begin": "/\\*:",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.ilex"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.ilex"
+            }
+          },
+          "name": "comment.block.documentation.playground.ilex",
+          "patterns": [
+            {
+              "include": "#nested"
+            }
+          ]
+        },
+        {
+          "begin": "/\\*|/-",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.ilex"
+            }
+          },
+          "end": "\\*/|-/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.ilex"
+            }
+          },
+          "name": "comment.block.ilex",
+          "patterns": [
+            {
+              "include": "#nested"
+            }
+          ]
+        },
+        {
+          "match": "\\*/|-/",
+          "name": "invalid.illegal.unexpected-end-of-block-comment.ilex"
+        },
+        {
+          "begin": "(^[ \\t]+)?(?=//)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.whitespace.comment.leading.ilex"
+            }
+          },
+          "end": "(?!\\G)",
+          "patterns": [
+            {
+              "begin": "///",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.definition.comment.ilex"
+                }
+              },
+              "end": "^",
+              "name": "comment.line.triple-slash.documentation.ilex"
+            },
+            {
+              "begin": "//:",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.definition.comment.ilex"
+                }
+              },
+              "end": "^",
+              "name": "comment.line.double-slash.documentation.ilex"
+            },
+            {
+              "begin": "//",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.definition.comment.ilex"
+                }
+              },
+              "end": "^",
+              "name": "comment.line.double-slash.ilex"
+            }
+          ]
+        }
+      ],
+      "repository": {
+        "nested": {
+          "begin": "/\\*|/-",
+          "end": "\\*/|-/",
+          "patterns": [
+            {
+              "include": "#nested"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "scopeName": "source.ilex"
+}
