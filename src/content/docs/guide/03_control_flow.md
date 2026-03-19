@@ -139,7 +139,9 @@ while condition == true {
 }
 ```
 
-For a do ... while loop use `#[at_least_once]`:
+### do while
+
+For a do while loop use `#[at_least_once]`:
 ```ilex
 #[at_least_once]
 while condition == true {
@@ -168,6 +170,8 @@ while !window_should_close(&window) {
 }
 ```
 
+### do until
+
 Until loops can also use `#[at_least_once]`:
 ```ilex
 #[at_least_once]
@@ -176,7 +180,22 @@ until condition == true {
 }
 ```
 
-## continue and break
+## break and continue
+
+### break
+
+`break` will exit the current iteration of the loop and will not continue:
+```ilex
+found := false;
+for const v in some_array {
+    if v == target {
+        found = true;
+        break; // Will exit this iteration and will not continue the loop.
+    }
+}
+```
+
+### continue
 
 `continue` will exit the current iteration of the loop but continue:
 ```ilex
@@ -187,17 +206,6 @@ for i := 0; i < 10; ++i {
     }
 
     fmt::print("odd");
-}
-```
-
-`break` will exit the current iteration of the loop and will not continue:
-```ilex
-found := false;
-for const v in some_array {
-    if v == target {
-        found = true;
-        break; // Will exit this iteration and will not continue the loop.
-    }
 }
 ```
 
@@ -342,6 +350,8 @@ assert(x == 42); // true
 
 ## labels
 
+### break and continue
+
 Labels can be used with `break` and `continue`. For instance if you have and inner and
 outer loop you can use labels to specify which loop to `break`/`continue` from. Otherwise
 ilex will `break`/`continue` from the loop the statement is in which may not be what you want.
@@ -364,6 +374,8 @@ for i := 0; i < 100; ++i {
     // code
 }
 ```
+
+### goto
 
 Labels can also be used with `goto`:
 ```ilex
