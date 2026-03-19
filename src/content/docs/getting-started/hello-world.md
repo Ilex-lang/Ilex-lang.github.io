@@ -7,7 +7,7 @@ Let's write a simple "Hello, World!" program in Ilex.
 
 ## Your First Program
 
-Create a file called `hello.ilex`:
+Create a file called `hello.ix`:
 
 ```ilex
 namespace main;
@@ -22,7 +22,7 @@ fn main() {
 ## Compile and Run
 
 ```bash
-ilex hello.ilex
+ilex hello.ix
 ./ilex-out/hello
 ```
 

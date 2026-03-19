@@ -120,6 +120,7 @@ Every type has a default zero value:
 | `bool` | `false` |
 | `char` | `\0` |
 | `string` | `""` |
+| `cstring` | `null` |
 | Pointer types | `null` |
 | Optional types | `null` |
 | Struct types | All fields zero-initialized |
