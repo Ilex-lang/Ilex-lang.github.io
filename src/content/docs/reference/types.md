@@ -96,8 +96,8 @@ sidebar:
 
 | Syntax | Description |
 |--------|-------------|
-| `T?` | Optional — `T` or null |
-| `T!` | Result — `T` or error |
+| `T?` | Optional: `T` or null |
+| `T!` | Result: `T` or error |
 | `void!` | No value or error |
 
 ## Number Literal Formats
