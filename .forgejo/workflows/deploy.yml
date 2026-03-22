@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: codeberg-tiny
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
 
@@ -16,6 +16,8 @@ jobs:
 
       - run: bun run build
 
-      - uses: https://codeberg.org/actions/pages@v1
+      - uses: actions/git-pages@v2
         with:
-          directory: dist
+          site: https://neolang.codeberg.page/pages/
+          token: ${{ forge.token }}
+          source: dist/
