@@ -18,7 +18,7 @@ Neo is a systems programming language designed around the principle of **explici
 ```neo
 namespace main;
 
-#import using fmt;
+#import using <fmt>
 
 fn main() {
     println("Hello, world!");

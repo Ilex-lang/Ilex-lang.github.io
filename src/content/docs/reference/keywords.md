@@ -19,7 +19,6 @@ sidebar:
 | `error` | Error type definition |
 | `namespace` | Namespace declaration |
 | `extern` | External (C) declaration block |
-| `test` | Test block declaration |
 | `operator` | Operator overload declaration |
 | `overloads` | Overload set declaration |
 
@@ -81,7 +80,6 @@ sidebar:
 | `true` | Boolean true |
 | `false` | Boolean false |
 | `null` | Null pointer / empty optional |
-| `skip` | Skip a test |
 
 ## Import Directives
 
@@ -116,6 +114,7 @@ sidebar:
 | `#counter` | Global incrementing counter |
 | `#concat` | Compile-time string concatenation |
 | `#stringify` | Convert expression to string |
+| `#test` | A test block |
 
 ## Source Location Directives
 

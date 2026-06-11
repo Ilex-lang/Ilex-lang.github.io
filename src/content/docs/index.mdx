@@ -21,7 +21,7 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
 <Tabs>
   <TabItem label="Hello world">
     ```neo
-    #import fmt;
+    #import <fmt>
 
     fn main() {
         fmt::println("Hullo!");
@@ -30,8 +30,8 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
   </TabItem>
   <TabItem label="Generics">
     ```neo
-    #import fmt;
-    #import { append } from arrays;
+    #import <fmt>
+    #import { append } from <arrays>
 
     typedef Vec2 struct<$T :: ~#number> {
         x: T;
@@ -40,6 +40,7 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
 
     typedef Vec2f as Vec2<f32>;
 
+    #[inline, no_context]
     fn dot(a, b: Vec2<$T>): T {
         return a.x * b.x + a.y * b.y;
     }
@@ -63,13 +64,13 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
   </TabItem>
   <TabItem label="Error Handling">
     ```neo
-    #import using fmt;
-    #import fs;
+    #import using <fmt>
+    #import <fs>
 
     fn read_file(path: string): string! {
         file := try fs::open(path);
         defer fs::close(&file);
-        return try fs::read_all(&file);
+        return fs::read_all(&file);
     }
 
     fn main() {
@@ -84,9 +85,9 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
   </TabItem>
   <TabItem label="Compile-Time">
     ```neo
-    #import fmt;
-    #import { run, trim } from process;
-    #import strings;
+    #import <fmt>
+    #import { run, trim } from <process>
+    #import <strings>
 
     const GIT_HASH = #run {
         result := process::run("git", ["rev-parse", "--short", "HEAD"]) else {
@@ -110,17 +111,18 @@ import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/compone
   </TabItem>
   <TabItem label="C Interop">
     ```neo
-    #import extern "raylib.h" as raylib;
+    #import extern "raylib.h" as rl;
 
     fn main() {
-        raylib::InitWindow(800, 600, "Hello from Neo");
-        defer raylib::CloseWindow();
+        rl::InitWindow(800, 600, "Hello from Neo");
+        defer rl::CloseWindow();
 
-        until raylib::WindowShouldClose() {
-            raylib::BeginDrawing();
-            defer raylib::EndDrawing();
-            raylib::ClearBackground(raylib::RAYWHITE);
-            raylib::DrawText("Hello!", 190, 200, 20, raylib::LIGHTGRAY);
+        until rl::WindowShouldClose() {
+            rl::BeginDrawing();
+            defer rl::EndDrawing();
+
+            rl::ClearBackground(rl::RAYWHITE);
+            rl::DrawText("Hello!", 190, 200, 20, rl::LIGHTGRAY);
         }
     }
     ```

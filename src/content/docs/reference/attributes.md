@@ -17,6 +17,7 @@ Attributes are written as `#[name]` or `#[name=value]` and modify the behavior o
 | `#[no_discard]` | Caller must use the return value |
 | `#[no_return]` | Function never returns |
 | `#[no_context]` | No implicit context parameter |
+| `#[with_context]` | Function has implicit context |
 | `#[deprecated]` | Warn on usage |
 | `#[warning]` | Custom warning on usage |
 | `#[maybe_unused]` | Suppress unused warnings |

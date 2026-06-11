@@ -10,7 +10,7 @@ Let's write a simple "Hello, World!" program in Neo.
 Create a file called `hello.neo`:
 
 ```neo
-#import fmt;
+#import <fmt>
 
 fn main() {
     fmt::println("Hello, World!");
