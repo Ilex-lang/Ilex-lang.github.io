@@ -9,7 +9,7 @@ const neoGrammar = require("./neo.tmLanguage.json");
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://neolang.codeberg.page",
+  site: "https://neolang-dev.github.io",
   markdown: {
     shikiConfig: {
       langs: [
